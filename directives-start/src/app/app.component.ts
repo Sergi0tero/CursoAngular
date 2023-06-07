@@ -9,4 +9,5 @@ export class AppComponent {
   odd = [2, 4];
   even = [1, 3, 5];
   onlyOdd = false;
+  value = 100;
 }
