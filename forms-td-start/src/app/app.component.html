@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form (ngSubmit)="onSubmit()" #f = "ngForm">
-        <div id="user-data">
+        <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" 
@@ -25,6 +25,7 @@
             email
             #emailInput="ngModel">
             <span class="help-block" *ngIf = "!emailInput.valid && emailInput.touched">Please enter a valid value!</span>
+            <p *ngIf="!userData.valid && userData.touched">User data is invalid!</p>
           </div>
         </div>
         <div class="form-group">
@@ -41,6 +42,17 @@
           <textarea name="questionAnswer" rows="3" [(ngModel)] = "answer"></textarea>
         </div>
         <p>You reply: {{answer}}</p>
+        <div class="radio" *ngFor="let gender of genders">
+          <label for="">
+            <input 
+              type="radio"
+              name="gender"
+              ngModel
+              [value]= gender
+              >
+              {{gender}}
+          </label>
+        </div>
         <button 
         class="btn btn-primary" 
         type="submit"
