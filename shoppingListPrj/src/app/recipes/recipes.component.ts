@@ -6,8 +6,7 @@ import { RecipeService } from '../services/recipe.service';
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
-  styleUrls: ['./recipes.component.css'],
-  providers: [RecipeService]
+  styleUrls: ['./recipes.component.css']
 })
 @Injectable()
 export class RecipesComponent implements OnInit {

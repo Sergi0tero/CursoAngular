@@ -6,6 +6,7 @@ import { Subject } from "rxjs";
 @Injectable()
 
 export class RecipeService{
+    recipeChanged = new Subject<Recipe[]>();
      private recipes: Recipe[] = [
       new Recipe('Burger', 'Just a burger', 'https://png.pngtree.com/png-clipart/20221001/original/pngtree-fast-food-big-ham-burger-png-image_8648590.png',[
         new Ingredient("Pan", 2),
@@ -26,6 +27,21 @@ export class RecipeService{
 
     getRecipes(){
         return this.recipes.slice();
+    }
+
+    addRecipe(recipe : Recipe){
+      this.recipes.push(recipe);
+      this.recipeChanged.next(this.recipes.slice());
+    }
+
+    updateRecipe(updatedRecipe : Recipe, oldRecipeIndex : number){
+      this.recipes[oldRecipeIndex] = updatedRecipe;
+      this.recipeChanged.next(this.recipes.slice());
+    }
+
+    deleteRecipe(index : number){
+      this.recipes.splice(index, 1);
+      this.recipeChanged.next(this.recipes.slice());
     }
 
 }
