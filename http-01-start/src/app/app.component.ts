@@ -10,11 +10,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   loadedPosts = [];
   isFetching = false;
   error = null;
-  private errorSub : Subscription;
+  // private errorSub : Subscription;
 
   constructor(private postsService : PostsService) {}
 
@@ -22,9 +22,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.fetchPosts();
   }
 
-  ngOnDestroy(): void {
-    this.errorSub.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.errorSub.unsubscribe();
+  // }
 
   onCreatePost(postData: Post) {
     this.postsService.createAndStorePost(postData).subscribe(responseData => {
@@ -47,13 +47,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private fetchPosts(){
-    this.errorSub = this.postsService.error.subscribe(errorMessage => {
-      this.error = errorMessage;
-    });
     this.isFetching = true;
     this.postsService.fetchPosts().subscribe(posts => {
       this.loadedPosts = posts;
       this.isFetching = false;
+    }, error => {
+      this.error = error.message;
     });;
   }
 
