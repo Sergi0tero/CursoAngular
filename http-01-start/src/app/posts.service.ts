@@ -25,4 +25,8 @@ export class PostsService{
             return postArray; 
         }))
     }
+
+    deletePosts(){
+        return this.http.delete('https://angular-course-c9395-default-rtdb.firebaseio.com/posts.json')
+    }
 }
